@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>
+        {{ "Searchreplace"|trans({},'admin') }}
+    </title>
+</head>
+<body>
+<h1>{{ "Searchreplace"|trans({},'admin') }}</h1>
+{{ 'general_explanation'|trans({},'admin') }}<br />
+{{ message|raw }}<br />
+<form action="#" method="post">
+    <br />
+    <label for="searchinfields">{{ 'searchinfields'|trans({},'admin') }}</label><br />
+    <select name="searchinfields[]" id="searchinfields" multiple>
+        <option value="input">{{ 'inputfield'|trans({},'admin') }}</option>
+        <option value="textarea">{{ 'textareafield'|trans({},'admin') }}</option>
+        <option value="wysiwyg">{{ 'wysiwygfield'|trans({},'admin') }}</option>
+    </select><br />
+
+    <label for="searchterm">{{ 'searchterm'|trans({},'admin') }}</label><br />
+    <input type="text" value="" id="searchterm" name="searchterm" /><br />
+
+    <label for="replaceterm">{{ 'replaceterm'|trans({},'admin') }}</label><br />
+    <input type="text" value="" id="replaceterm" name="replaceterm" /><br />
+
+    {# ToDo: Enable if we do not ignore case by default
+    <label for="ignorecase">{{ 'ignorecase'|trans({},'admin') }}</label><br />
+    <input type="checkbox" value="yes" id="ignorecase" name="ignorecase" /><br />
+    #}
+
+    <label for="testrun">{{ 'testrun'|trans({},'admin') }}</label>
+    <input type="checkbox" value="yes" id="testrun" name="testrun" checked /><br />
+    <br />
+    <input type="submit" value="{{ 'Submit'|trans({},'admin') }}" /><br />
+</form>
+
+<script>
+    function goToDocument(id){
+        console.log(id);
+        if ( window.location !== window.parent.location ) {
+            // The page is in an iFrame
+            window.top.pimcore.treenodelocator.showInTree(id, 'document');
+        }
+        else{
+            // The page is not in an iFrame
+            location.href = '/admin/login/deeplink?document_'+id+'_document';
+        }
+    }
+</script>
+</body>
+</html>

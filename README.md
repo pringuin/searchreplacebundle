@@ -3,8 +3,12 @@ Add the option to search and replace text in all pimcore documents.
 
 ## Features
 * Easy installation in pimcore projects (drop-in-solution)
-* Admin interface to search and replace
+* Multilingual admin interface to search and replace
+* Testrun with replacement preview
 
+![Backend Interface](docs/img/search_form.png)
+
+![Backend Interface](docs/img/replacement_preview.png)
 
 ## Installation
 

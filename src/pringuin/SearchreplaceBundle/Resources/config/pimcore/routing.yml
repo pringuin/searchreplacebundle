@@ -1,0 +1,5 @@
+pringuin_searchreplace:
+    resource: "@pringuinSearchreplaceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

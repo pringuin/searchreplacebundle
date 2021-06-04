@@ -1,0 +1,18 @@
+Searchreplace: "Search & Replace"
+general_explanation: "You can search across your entire Pimcore installation and replace text."
+searchinfields: "Search & Replace in the following field types:"
+inputfield: "Input fields"
+textareafield: "Textarea fields"
+wysiwygfield: "WYSIWYG fields"
+searchterm: "Search for"
+replaceterm: "Replace with"
+ignorecase: "Ignore upper- or lowercase"
+testrun: "Do a testrun before modifying any data"
+Submit: "Submit"
+before: 'Before:'
+after: 'After:'
+results_found_in_testrun: 'The following results have been found during the test:'
+required_field_missing: 'You are missing one or more required fields'
+no_results_found: 'No results found for field type'
+text_replaced_successfully: 'Text has been found and replaced successfully'
+text_replacement_failed: 'Text replacement failed'

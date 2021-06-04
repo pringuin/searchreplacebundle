@@ -1,0 +1,32 @@
+{
+  "name": "pringuin/searchreplacebundle",
+  "type": "pimcore-bundle",
+  "license": "GPL-3.0-or-later",
+  "description": "Searchreplace Bundle for Pimcore",
+  "keywords": ["pimcore", "searchreplace"],
+  "homepage": "https://github.com/pringuin/searchreplacebundle",
+  "authors": [
+    {
+      "name": "PRinguin GbR",
+      "email": "kontakt@pringuin.de",
+      "homepage": "https://pringuin.de/",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "pringuin\\": "src/pringuin/"
+    }
+  },
+  "extra": {
+    "pimcore": {
+      "bundles": [
+        "pringuin\\SearchreplaceBundle\\pringuinSearchreplaceBundle"
+      ]
+    }
+  },
+  "require": {
+    "pimcore/pimcore": "^5.8 | ^6.0",
+    "php":"^7.0"
+  }
+}

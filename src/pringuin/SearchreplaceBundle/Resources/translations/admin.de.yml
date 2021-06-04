@@ -1,0 +1,18 @@
+Searchreplace: "Suchen & Ersetzen"
+general_explanation: "Durchsuchen Sie Ihre gesamte Pimcore installation und ersetzen Text."
+searchinfields: "Suchen und Ersetzen in den folgenden Feldern:"
+inputfield: "Input Felder"
+textareafield: "Textfelder"
+wysiwygfield: "WYSIWYG Felder"
+searchterm: "Suche nach"
+replaceterm: "Ersetze mit"
+ignorecase: "Groß- und Kleinschreibung ignorieren"
+testrun: "Testlauf durchführen ehe wirklich Daten ersetzt werden"
+Submit: "Absenden"
+before: 'Vorher:'
+after: 'Danach:'
+results_found_in_testrun: 'Die folgenden Ergebnisse wurden beim Test gefunden:'
+required_field_missing: 'Sie haben ein oder mehrere Pflichtfelder nicht ausgefüllt'
+no_results_found: 'Keine Ergebnisse gefunden für Feld'
+text_replaced_successfully: 'Der Text wurde gefunden und erfolgreich ersetzt'
+text_replacement_failed: 'Das Ersetzen des Textes ist fehlgeschlagen'
