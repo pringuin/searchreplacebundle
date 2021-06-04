@@ -3,7 +3,7 @@ Add the option to search and replace text in all pimcore documents.
 
 Note that this bundle is quite new and has not been tested thoroughly. 
 Use at your own risk! No warranty given. 
-This bundle does directly modify the Pimcore Database tables. Backups are hightly recommended.
+This bundle does directly modify the Pimcore Database tables. Backups are highly recommended.
 
 ## Features
 * Easy installation in pimcore projects (drop-in-solution)
@@ -21,7 +21,7 @@ This bundle does directly modify the Pimcore Database tables. Backups are hightl
 
 ```json
 "require": {
-    "pringuin/searchreplacebundle" : "dev-master"
+    "pringuin/searchreplacebundle" : "dev-main"
 }
 ```
 
