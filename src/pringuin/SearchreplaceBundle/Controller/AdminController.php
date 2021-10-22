@@ -30,7 +30,7 @@ class AdminController extends FrontendController
             throw new AccessDeniedHttpException();
         }
 
-        $allowedreplacetypes = ['input','textarea','wysiwyg'];
+        $allowedreplacetypes = ['input','textarea','wysiwyg','video'];
 
         $responsemessage = '';
         if($request->isMethod('post')){
@@ -56,38 +56,97 @@ class AdminController extends FrontendController
                                         ).'</div>';
                                 foreach($result as $foundelement){
                                     if(key_exists('data',$foundelement)) {
-                                        $responsemessage .= '<div><h2>'.$this
-                                                ->get('translator')
-                                                ->trans(
-                                                    'before',
-                                                    [],
-                                                    'admin'
-                                                ).' <span onclick="goToDocument('.$foundelement['documentId'].')" style="padding-top:5px;background-color:#000000">
+                                        if($foundelement['type'] == 'video'){
+                                            $deserializeddata = \Pimcore\Tool\Serialize::unserialize($foundelement['data']);
+                                            if(is_array($deserializeddata)) {
+                                                if (key_exists('type', $deserializeddata) && $deserializeddata['type'] == "youtube") {
+                                                    if (key_exists('id', $deserializeddata) && $deserializeddata['id'] == $request->request->get('searchterm')) {
+                                                        $responsemessage .= '<div><h2>'.$this
+                                                                ->get('translator')
+                                                                ->trans(
+                                                                    'before',
+                                                                    [],
+                                                                    'admin'
+                                                                ).' <span onclick="goToDocument('.$foundelement['documentId'].')" style="padding-top:5px;background-color:#000000">
+                                                        <img src="/bundles/pimcoreadmin/img/flat-white-icons/page.svg" />
+                                                        </span></h2>';
+                                                        $responsemessage .= $this
+                                                                ->get('translator')
+                                                                ->trans(
+                                                                    'videoid',
+                                                                    [],
+                                                                    'admin'
+                                                                ).' '.strip_tags($deserializeddata['id']);
+                                                        $responsemessage .= '</div>';
+                                                        $responsemessage .= '<div><h2>'.$this
+                                                                ->get('translator')
+                                                                ->trans(
+                                                                    'after',
+                                                                    [],
+                                                                    'admin'
+                                                                ).'</h2>';
+                                                        $responsemessage .= $this
+                                                                ->get('translator')
+                                                                ->trans(
+                                                                    'videoid',
+                                                                    [],
+                                                                    'admin'
+                                                                ).' '.$request->request->get('replaceterm');
+                                                        $responsemessage .= '</div>';
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            $responsemessage .= '<div><h2>'.$this
+                                                    ->get('translator')
+                                                    ->trans(
+                                                        'before',
+                                                        [],
+                                                        'admin'
+                                                    ).' <span onclick="goToDocument('.$foundelement['documentId'].')" style="padding-top:5px;background-color:#000000">
                                                 <img src="/bundles/pimcoreadmin/img/flat-white-icons/page.svg" />
                                                 </span></h2>';
-                                        $responsemessage .= strip_tags($foundelement['data']);
-                                        $responsemessage .= '</div>';
-                                        $html_pattern = $this->make_html_pattern($request->request->get('searchterm'));
-                                        $text_replacement = $this->make_text_replacement($request->request->get('replaceterm'));
-                                        $responsemessage .= '<div><h2>'.$this
-                                                ->get('translator')
-                                                ->trans(
-                                                    'after',
-                                                    [],
-                                                    'admin'
-                                                ).'</h2>';
-                                        $responsemessage .= strip_tags(preg_replace($html_pattern, $text_replacement, $foundelement['data']));
-                                        $responsemessage .= '</div>';
+                                            $responsemessage .= strip_tags($foundelement['data']);
+                                            $responsemessage .= '</div>';
+                                            $html_pattern = $this->make_html_pattern($request->request->get('searchterm'));
+                                            $text_replacement = $this->make_text_replacement($request->request->get('replaceterm'));
+                                            $responsemessage .= '<div><h2>'.$this
+                                                    ->get('translator')
+                                                    ->trans(
+                                                        'after',
+                                                        [],
+                                                        'admin'
+                                                    ).'</h2>';
+                                            $responsemessage .= strip_tags(preg_replace($html_pattern, $text_replacement, $foundelement['data']));
+                                            $responsemessage .= '</div>';
+                                        }
                                     }
                                 }
                             }
                             else{
                                 foreach($result as $foundelement) {
                                     if (key_exists('data', $foundelement)) {
-                                        $html_pattern = $this->make_html_pattern($request->request->get('searchterm'));
-                                        $text_replacement = $this->make_text_replacement($request->request->get('replaceterm'));
-                                        $replacement = preg_replace($html_pattern, $text_replacement, $foundelement['data']);
-                                        $updatesuccess = true;
+                                        if($foundelement['type'] == 'video'){
+                                            $replacement = $foundelement['data'];
+                                            $deserializeddata = \Pimcore\Tool\Serialize::unserialize($foundelement['data']);
+                                            if(is_array($deserializeddata)){
+                                                if(key_exists('type',$deserializeddata) && $deserializeddata['type'] == "youtube"){
+                                                    if(key_exists('id',$deserializeddata) && $deserializeddata['id'] == $request->request->get('searchterm')){
+                                                        $preparereplacement = $deserializeddata;
+                                                        $preparereplacement['id'] = $request->request->get('replaceterm');
+                                                        $replacement = \Pimcore\Tool\Serialize::serialize($preparereplacement);
+                                                        $updatesuccess = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            $html_pattern = $this->make_html_pattern($request->request->get('searchterm'));
+                                            $text_replacement = $this->make_text_replacement($request->request->get('replaceterm'));
+                                            $replacement = preg_replace($html_pattern, $text_replacement, $foundelement['data']);
+                                            $updatesuccess = true;
+                                        }
                                         try{
                                             $data = [
                                                 'data' => $replacement,
@@ -104,21 +163,21 @@ class AdminController extends FrontendController
                                         }
                                         if($updatesuccess) {
                                             $responsemessage .= '<div>' . $this
-                                                ->get('translator')
-                                                ->trans(
-                                                    'text_replaced_successfully',
-                                                    [],
-                                                    'admin'
-                                                ) . ' ' . $searchinfields . '</div>';
+                                                    ->get('translator')
+                                                    ->trans(
+                                                        'text_replaced_successfully',
+                                                        [],
+                                                        'admin'
+                                                    ) . ' ' . $searchinfields . '</div>';
                                         }
                                         else{
                                             $responsemessage .= '<div>'.$this
-                                                ->get('translator')
-                                                ->trans(
-                                                    'text_replacement_failed',
-                                                    [],
-                                                    'admin'
-                                                ).' '.$searchinfields.'</div>';
+                                                    ->get('translator')
+                                                    ->trans(
+                                                        'text_replacement_failed',
+                                                        [],
+                                                        'admin'
+                                                    ).' '.$searchinfields.'</div>';
                                         }
                                     }
                                 }

@@ -3,6 +3,18 @@
     <title>
         {{ "Searchreplace"|trans({},'admin') }}
     </title>
+    <style>
+        body {
+            padding: 25px;
+        }
+        h2 {
+            margin-top: 25px;
+        }
+        select, input {
+            margin-bottom: 20px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 <h1>{{ "Searchreplace"|trans({},'admin') }}</h1>
@@ -15,6 +27,7 @@
         <option value="input">{{ 'inputfield'|trans({},'admin') }}</option>
         <option value="textarea">{{ 'textareafield'|trans({},'admin') }}</option>
         <option value="wysiwyg">{{ 'wysiwygfield'|trans({},'admin') }}</option>
+        <option value="video">{{ 'videofield'|trans({},'admin') }}</option>
     </select><br />
 
     <label for="searchterm">{{ 'searchterm'|trans({},'admin') }}</label><br />

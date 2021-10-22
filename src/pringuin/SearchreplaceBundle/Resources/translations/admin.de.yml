@@ -16,3 +16,5 @@ required_field_missing: 'Sie haben ein oder mehrere Pflichtfelder nicht ausgefü
 no_results_found: 'Keine Ergebnisse gefunden für Feld'
 text_replaced_successfully: 'Der Text wurde gefunden und erfolgreich ersetzt'
 text_replacement_failed: 'Das Ersetzen des Textes ist fehlgeschlagen'
+videoid: 'Video ID'
+videofield: 'Video (YouTube ID)'
